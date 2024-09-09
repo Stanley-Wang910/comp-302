@@ -1,0 +1,16 @@
+# dune build -w
+# OCAMLPARAM: unset
+# Shared cache: disabled
+# Shared cache location: /home/twinfantasyfan/.cache/dune/db
+# Workspace root: /home/twinfantasyfan/school/comp-302/class_notes
+# Auto-detected concurrency: 12
+# Dune context:
+#  { name = "default"
+#  ; kind = "default"
+#  ; profile = Dev
+#  ; merlin = true
+#  ; fdo_target_exe = None
+#  ; build_dir = In_build_dir "default"
+#  ; instrument_with = []
+#  }
+$ /home/twinfantasyfan/.opam/ocaml-book/bin/ocamlc.opt -config > /tmp/dune_9c5956_output

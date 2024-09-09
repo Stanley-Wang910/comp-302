@@ -1,0 +1,26 @@
+# dune build -w
+# OCAMLPARAM: unset
+# Shared cache: disabled
+# Shared cache location: /home/twinfantasyfan/.cache/dune/db
+# Workspace root: /home/twinfantasyfan/school/comp-302/homework/hw1
+# Auto-detected concurrency: 12
+# Dune context:
+#  { name = "default"
+#  ; kind = "default"
+#  ; profile = Dev
+#  ; merlin = true
+#  ; fdo_target_exe = None
+#  ; build_dir = In_build_dir "default"
+#  ; instrument_with = []
+#  }
+$ /home/twinfantasyfan/.opam/ocaml-book/bin/ocamlc.opt -config > /tmp/dune_b141b3_output
+$ (cd _build/default && /home/twinfantasyfan/.opam/ocaml-book/bin/ocamlc.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -w -49 -nopervasives -nostdlib -g -bin-annot -bin-annot-occurrences -I lib/.hw1.objs/byte -no-alias-deps -opaque -o lib/.hw1.objs/byte/hw1.cmo -c -impl lib/hw1.ml-gen)
+$ (cd _build/default && /home/twinfantasyfan/.opam/ocaml-book/bin/ocamlc.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -bin-annot -bin-annot-occurrences -I bin/.main.eobjs/byte -I lib/.hw1.objs/byte -no-alias-deps -opaque -o bin/.main.eobjs/byte/dune__exe__Main.cmi -c -intf bin/main.mli)
+$ (cd _build/default && /home/twinfantasyfan/.opam/ocaml-book/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -w -49 -nopervasives -nostdlib -g -I lib/.hw1.objs/byte -I lib/.hw1.objs/native -intf-suffix .ml-gen -no-alias-deps -opaque -o lib/.hw1.objs/native/hw1.cmx -c -impl lib/hw1.ml-gen)
+$ (cd _build/default && /home/twinfantasyfan/.opam/ocaml-book/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I bin/.main.eobjs/byte -I bin/.main.eobjs/native -I lib/.hw1.objs/byte -I lib/.hw1.objs/native -intf-suffix .ml -no-alias-deps -opaque -o bin/.main.eobjs/native/dune__exe__Main.cmx -c -impl bin/main.ml)
+> File "bin/main.ml", line 20, characters 13-22:
+> 20 |   | _ -> n * factorial n - 1
+>                   ^^^^^^^^^
+> Error: Unbound value factorial
+[2]
+$ (cd _build/default && /home/twinfantasyfan/.opam/ocaml-book/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -a -o lib/hw1.cmxa lib/.hw1.objs/native/hw1.cmx)

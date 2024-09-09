@@ -1,0 +1,8 @@
+lib: [
+  "_build/install/default/lib/class_notes/META"
+  "_build/install/default/lib/class_notes/dune-package"
+  "_build/install/default/lib/class_notes/opam"
+]
+bin: [
+  "_build/install/default/bin/class_notes"
+]

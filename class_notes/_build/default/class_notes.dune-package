@@ -1,0 +1,4 @@
+(lang dune 3.16)
+(name class_notes)
+(sections (lib .) (bin ../../bin))
+(files (lib (META dune-package opam)) (bin (class_notes)))
