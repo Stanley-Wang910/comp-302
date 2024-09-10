@@ -98,3 +98,57 @@ let ackerman (n, k)  =
        | (0, _) -> k + 1
        | (_, _) -> ack (n - 1) (ack n (k - 1))
      in ack n k)
+
+
+
+
+(* Question 2: is_prime *)
+
+(* TODO: Write a good set of tests for is_prime. *)
+let is_prime_tests = [
+(* Your tests go here *)
+  (2, true);
+  (3, true);
+
+  (4, false);
+  (5, true);
+
+  (6, false);
+  (7, true);
+  (1523, true);
+  (7727, true);
+  (7728, false);
+]
+
+(* TODO: Correct this implementation so that it compiles and returns
+         the correct answers.
+*)
+let is_prime (n: int) : bool =
+  if n <= 1 then domain () 
+  else
+    let rec divisor x =
+      if x * x > n
+        then true
+      else if n mod x == 0 
+        then false
+      else
+        divisor (x+1)
+      in 
+        divisor 2
+
+(* Question 3: Newton-Raphson method for computing the square root *)
+
+let square_root_tests = [
+]
+
+let square_root (a : float) =
+  let rec findroot x acc =
+    let x_prime = ((a /. x) +. x) /. 2. in 
+  if abs_float (x -. x_prime) < acc then x_prime
+  else
+    findroot x_prime acc
+  in
+  if a > 0.
+  then findroot 1. epsilon_float
+  else domain ()
+
