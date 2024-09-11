@@ -139,6 +139,20 @@ let is_prime (n: int) : bool =
 (* Question 3: Newton-Raphson method for computing the square root *)
 
 let square_root_tests = [
+  (1e-300, 1e-150);
+  (2.0, 1.4142135623730951);
+  (3.0, 1.7320508075688772);
+  (5.0, 2.236067977499790);
+  (4., 2.);
+  (9.,3.);
+  (16., 4.);
+  (25., 5.);
+  (36., 6.);
+  (49., 7.);
+  (64., 8.);
+  (81., 9.);
+  (100., 10.);
+  (1., 1.);
 ]
 
 let square_root (a : float) =
@@ -152,3 +166,40 @@ let square_root (a : float) =
   then findroot 1. epsilon_float
   else domain ()
 
+
+
+(* Question 4: Fibonacci*)
+
+(* TODO: Write a good set of tests for fib_tl. *)
+let fib_tl_tests = [
+  (0, 0);
+  (1, 1);
+  (2, 1);
+  (3, 2);
+  (4, 3);
+  (5, 5);
+  (6, 8);
+  (7, 13);
+  (8, 21);
+  (9, 34);
+  (10, 55);
+  (15, 610);
+  (20, 6765);
+  (30, 832040);
+  (40, 102334155);
+]
+
+(* TODO: Implement a tail-recursive helper fib_aux. *)
+let rec fib_aux n a b =
+  if n = 0 then a
+  else
+  fib_aux (n-1) (b) (a+b)
+  
+
+
+(* TODO: Implement fib_tl using fib_aux. *)
+let fib_tl n =
+  match n with
+  | 0 -> 1
+  | 1 -> 1
+  | _ -> fib_aux n 1 1 
