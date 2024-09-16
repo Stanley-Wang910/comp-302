@@ -1,0 +1,16 @@
+# dune exec hw2
+# OCAMLPARAM: unset
+# Shared cache: disabled
+# Shared cache location: /Users/stanley/.cache/dune/db
+# Workspace root: /Users/stanley/School/comp-302/homework/hw2
+# Auto-detected concurrency: 8
+# Dune context:
+#  { name = "default"
+#  ; kind = "default"
+#  ; profile = Dev
+#  ; merlin = true
+#  ; fdo_target_exe = None
+#  ; build_dir = In_build_dir "default"
+#  ; instrument_with = []
+#  }
+$ /Users/stanley/.opam/comp303-2024/bin/ocamlc.opt -config > /var/folders/xq/nwkr5dqj4xs0y8xs0xjgtwjw0000gn/T/dune_796580_output
