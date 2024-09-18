@@ -7,7 +7,6 @@ let rec last l =
 
 let result = last ["a" ; "b" ; "c" ; "d"];;
 
-
  
 (*the official solution *)
 
@@ -62,3 +61,19 @@ let rev list =
 let is_palindrome = function
   | [] -> true
   | l -> l = rev l 
+
+
+(*7. Flatten a List*)
+
+type 'a node =
+  | One of 'a 
+  | Many of 'a node list
+
+let flatten list =
+  let rec aux acc = function
+    | [] -> acc
+    | One e :: tail -> aux (e::acc) tail
+    | Many l :: tail -> aux (aux acc l) tail
+  in 
+  List.rev (aux [] list)
+
