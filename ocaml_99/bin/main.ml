@@ -57,3 +57,8 @@ let rev list =
   aux [] list
 
 
+(*6. Palindrome*)
+
+let is_palindrome = function
+  | [] -> true
+  | l -> l = rev l 
