@@ -47,3 +47,13 @@ let length list =
   aux 0 list
 
 
+(*5. Reverse a List*)
+
+let rev list =
+  let rec aux r_l = function
+    | [] -> r_l
+    | x :: tail -> aux (x::r_l) tail
+  in 
+  aux [] list
+
+
