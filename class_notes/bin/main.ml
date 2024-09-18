@@ -1,21 +1,13 @@
-(*let m = 4 in*)
-(*let n = m * m in*)
-(*let k = m * m in*)
-(*  k*n*)
-(*;;*)
+(*Week 3: Induction*)
 
-(*function example*)
+(*recursive tree data type *)
+type 'a tree =
+  | Empty
+  | Node of 'a tree * 'a * 'a  tree
 
+(*an n-ary tree*)
 
-let pi = 3.14
-(*  name   input    output *)
-let area : float -> float = 
-  function r -> pi *. r *. r
+type 'a nary_tree = Empty | Node of 'a * ('a tree) list
 
-let a2 = area 2.0
+  
 
-(* redefine pi*)
-let pi = 6.0
-
-(*what happens here?*)
-let a3 = area 2.0
