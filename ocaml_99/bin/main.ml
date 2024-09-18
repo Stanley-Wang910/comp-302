@@ -1,4 +1,3 @@
-
 (*1. Tail of a List*)
 let rec last l =
   match l with
@@ -28,5 +27,23 @@ let rec last_two list =
   | [_] -> None
   | [x; y] -> Some (x, y)
   | _ :: tail -> last_two tail
+
+(*3. Nth Element of a List*)
+
+let rec nth_elem k list =
+  match list with
+  | [] -> None
+  | x :: tail -> if k > 0 then nth_elem (k-1) tail else Some x 
+
+
+(*4. Length of a List*)
+ (*-- can do tail recursion too *)
+
+let length list =
+  let rec aux k = function
+    | [] -> k
+    | _ :: tail -> aux (k+1) tail
+  in
+  aux 0 list
 
 
