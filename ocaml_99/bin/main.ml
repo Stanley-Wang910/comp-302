@@ -1,3 +1,4 @@
+
 (*1. Tail of a List*)
 let rec last l =
   match l with
@@ -7,9 +8,7 @@ let rec last l =
 
 let result = last ["a" ; "b" ; "c" ; "d"];;
 
-match result with
-| Some x -> Printf.printf "%s\n" x
-| None -> Printf.printf  "list empty"
+
  
 (*the official solution *)
 
@@ -20,6 +19,14 @@ let rec last = function
 
 let result = last ["a" ; "b" ; "c" ; "d"];;
 
-match result with
-| Some x -> Printf.printf "%s\n" x
-| None -> Printf.printf  "list empty"
+
+
+(*2. Last Two Elements of a List*)
+let rec last_two list =
+  match list with
+  | [] -> None
+  | [_] -> None
+  | [x; y] -> Some (x, y)
+  | _ :: tail -> last_two tail
+
+
