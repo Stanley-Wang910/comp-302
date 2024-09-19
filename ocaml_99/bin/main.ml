@@ -77,3 +77,20 @@ let flatten list =
   in 
   List.rev (aux [] list)
 
+
+
+
+(*9. Eliminate Duplicates*)
+
+let compress list = 
+  let rec aux n list = 
+    match list with
+    | x :: tail -> if n = x then aux n tail
+                  else n :: aux x tail
+    | [] -> [n]
+  in
+  match list with
+  | [] -> []
+  | n :: tail -> aux n tail
+
+(*another approach can be used with pattern matching first two elements of list*)
