@@ -80,7 +80,7 @@ let flatten list =
 
 
 
-(*9. Eliminate Duplicates*)
+(*8. Eliminate Duplicates*)
 
 let compress list = 
   let rec aux n list = 
