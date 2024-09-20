@@ -94,3 +94,45 @@ let compress list =
   | n :: tail -> aux n tail
 
 (*another approach can be used with pattern matching first two elements of list*)
+
+
+(*9. Pack Consecutive Duplicates *)
+
+let pack list = 
+  let rec aux n res list =
+  match list with
+    | x :: tail -> 
+        if n = x then aux n (x::res) tail
+        else (n :: res) :: aux x [] tail
+    | [] -> [n::res]
+  in
+  match list with
+  | [] -> []
+  | n :: tail -> aux n [] tail
+
+
+
+(*10. Run-Length Encoding*)
+
+let encode list =
+  let rec aux count n = function
+  | [] -> [(count, n)]
+  | x :: t -> 
+    if n = x then aux (count + 1) n t
+    else (count, n) :: aux 1 x t
+  in
+  match list with
+  | [] -> []
+  | x :: t -> aux 1 x t
+
+
+
+
+
+
+
+
+
+
+
+
