@@ -127,6 +127,28 @@ let encode list =
 
 
 
+(*11. Modified Run-Length Encoding*)
+type 'a rle =
+  | One of 'a
+  | Many of int * 'a
+
+let m_encode list =
+  let create_tuple count elem =
+    if count = 1 then One elem
+    else Many (count, elem) in 
+  let rec aux count n = function
+  | [] -> [create_tuple count n]
+  | x :: t -> 
+    if n = x then aux (count + 1) n t
+    else (create_tuple count n) :: aux 1 x t
+  in
+  match list with
+  | [] -> []
+  | x :: t -> aux 1 x t
+
+
+
+
 
 
 
