@@ -76,3 +76,35 @@ let dist_table ((marblesTotal, marblesDrawn): (int * int)) (x: int) : float list
   in
   tabulate fix_n marblesTotal
 
+
+let is_empty_tests: (float list list * bool) list = [
+  ([], true);
+  ([[]], true);
+  ([[]; []; []], true);
+  ([[0.]], false);
+  ([[0.]; []], false);
+  ([[]; [0.]], false);
+  ([[0.]; [1.]; [2.]], false);
+  ([[]; []; [0.1; 0.2]], false)
+]
+(* TODO: Implement is_empty: 'a list list -> bool *)
+let is_empty (matrix: 'a list list) : bool =
+  if List.for_all (fun l -> List.length l = 0) matrix then true
+    else false
+
+(* TODO: Implement dist_matrix: int * int -> int list -> float list list *)
+let dist_matrix ((total, drawn): int * int) (resultList: int list) : float list list =
+  let aux x =
+    dist_table (total, drawn) x
+  in 
+  List.map aux resultList
+
+
+let rec combined_dist_table (matrix: float list list) =
+  let rec transpose = function
+  | [] -> []
+  | [] :: _ -> []
+  | lists -> (
+      List.map List.hd lists :: transpose (List.map List.tl lists))
+  in 
+  List.map (List.fold_left ( *. ) 1.) (transpose matrix)
