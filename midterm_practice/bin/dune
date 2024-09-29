@@ -1,0 +1,4 @@
+(executable
+ (public_name midterm_practice)
+ (name main)
+ (libraries midterm_practice))

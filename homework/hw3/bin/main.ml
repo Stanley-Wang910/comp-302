@@ -38,18 +38,6 @@ let max_in_list l =
   pos
 
 
- type ingredients = Chocolate | Orange | Almonds | Vanilla | Flour | BlackBeans
-
- type cake = Slice of ingredients list | Cake of cake * cake
-
-                                            
-let rec insert x l = match l with
-  | [] -> [x]
-  | y::ys -> if x = y then l else y::(insert x ys)
-           
-let rec union l1 l2 = match l2 with
-  | [] -> l1
-  | x::xs -> union (insert x l1) xs
 
 
 
@@ -89,8 +77,7 @@ let is_empty_tests: (float list list * bool) list = [
 ]
 (* TODO: Implement is_empty: 'a list list -> bool *)
 let is_empty (matrix: 'a list list) : bool =
-  if List.for_all (fun l -> List.length l = 0) matrix then true
-    else false
+  List.for_all (fun l -> List.length l = 0) matrix 
 
 (* TODO: Implement dist_matrix: int * int -> int list -> float list list *)
 let dist_matrix ((total, drawn): int * int) (resultList: int list) : float list list =
@@ -108,3 +95,86 @@ let rec combined_dist_table (matrix: float list list) =
       List.map List.hd lists :: transpose (List.map List.tl lists))
   in 
   List.map (List.fold_left ( *. ) 1.) (transpose matrix)
+
+
+
+(*Prolem 2*)
+ type ingredients = Chocolate | Orange | Almonds | Vanilla | Flour | BlackBeans
+
+ type cake = Slice of ingredients list | Cake of cake * cake
+
+                                            
+let rec insert x l = match l with
+  | [] -> [x]
+  | y::ys -> if x = y then l else y::(insert x ys)
+           
+let rec union l1 l2 = match l2 with
+  | [] -> l1
+  | x::xs -> union (insert x l1) xs
+
+(* TODO: Implement all: (ingredients list -> bool) -> cake -> bool *)
+let rec all (p: (ingredients list -> bool)) (c: cake) : bool = 
+  match c with 
+  | Slice l -> p l
+  | Cake (left, right) -> all p left && all p right 
+
+  
+
+(*example chocolate cake*)
+let ccake = Cake (Slice [Chocolate ; Flour], Cake (Slice [Chocolate ; Almonds] , Slice [Chocolate ; BlackBeans]))
+
+
+(* TODO: Write some test cases for is_chocolate_cake. *)
+let is_chocolate_cake_tests = [
+  (Slice [Chocolate; Flour], true);
+  
+  (Slice [Vanilla; Flour], false);
+  
+  (Cake (Slice [Chocolate; Flour], Slice [Chocolate; Almonds]), true);
+  
+  (Cake (Slice [Chocolate; Flour], Slice [Vanilla; Almonds]), false);
+  
+  (ccake, true);
+  
+  (Cake (Slice [Chocolate; Flour], Cake (Slice [Vanilla; Almonds], Slice [Chocolate; BlackBeans])), false);
+  
+  (Slice [], false);
+  
+  (Cake (Slice [], Slice [Chocolate]), false);
+]
+
+
+
+let is_chocolate_cake (c: cake) : bool = 
+  let rec aux = function
+    | [] -> false
+    | Chocolate :: _ -> true
+    | _ :: tl -> aux tl
+    (*List.mem Chocolate list*)
+  in all aux c
+ 
+let rec map (p: (ingredients list -> ingredients list)) (c: cake) = 
+  match c with
+  | Slice l -> Slice (p l)
+  | Cake (left, right) -> Cake (map p left,map p right)
+
+
+
+let add_ingredient_tests = [
+  ((Chocolate, Cake (Slice [Flour], Slice [])), Cake (Slice [Flour; Chocolate], Slice [Chocolate])); 
+  ((Chocolate, Cake (Slice [Flour; Chocolate], Slice [])), Cake (Slice [Flour; Chocolate], Slice [Chocolate])); 
+]
+
+
+let add_ingredient (x: ingredients) (c: cake) : cake = 
+  map (insert x) c 
+
+let rec fold_cake (f: (ingredients list -> 'a -> 'a)) (base: 'a) (c: cake) : 'a = 
+  match c with
+  | Slice l ->  f l base
+  | Cake (left, right) -> (
+      let left_res = fold_cake f base left in
+      fold_cake f left_res right )
+
+let get_all_ingredients (c: cake) : ingredients list = 
+  fold_cake union [] c
