@@ -74,6 +74,7 @@ let rec get_all c = match c with
   | Cake (c1, c2) -> (get_all c1) @ (get_all c2) 
 
 
+
 let rec get_all' c all = match c with
   | Slice i -> all @ [i]
   | Cake (c1, c2) -> (get_all' c1) (get_all' c2 all)
@@ -129,14 +130,74 @@ matching on lists, but instead just use the HO functions we saw
 in class.
  *)
 
-let players = [ ("Aliya", 1000, Some (400 , Red)) ;
+let players = [ ("Aliya", 1000, Some (400 , Black)) ;
               ("Jerome", 800, Some (240 , Black)) ;
               ("Mo" ,    900, Some (200, Black)) ;
-              ("Andrea", 950, Some ((100 , Red)))]
+              ("Andrea", 950, Some ((100 , Black)))]
 
-(* Q1:  given a list of players  compute the new amounts each player has and set their bets to None *)
 
-(* Q2: given a list of bets and a result compute a list of winning players with their bets *)
+let new_amt (l : player list) result = 
+  let aux player = match player with
+    | (_, _, None) -> player
+    | (id, amt, Some bet) -> (id, ((compute bet result) + amt), None)
+  in 
+  List.map aux l
+
+
+let win_p (l : player list) result = 
+  let aux player = match player with
+    | (_, _, None) -> false
+    | (_, _, Some bet) -> (compute bet result) > 0
+  in List.filter aux l
+
+let payback (l: player list) result : int = 
+  let aux = function
+  | (_, _, None) -> 0
+  | (_, _, Some bet) -> compute bet result
+  in List.fold_left ( + ) 0 (List.map aux l)
+
+
+let if_nobody_won (l: player list) result : bool = 
+  let aux = function
+  | (_, _, None) -> true
+  | (_, _, Some bet) -> (compute bet result) <= 0
+  in List.for_all aux l
+
+
+let if_everyone_won (l: player list) result : bool = 
+  let aux = function
+  | (_, _, None) -> false
+  | (_, _, Some bet) -> (compute bet result) > 0
+  in List.for_all aux l
+
+
+let if_someone_won (l: player list) result : bool = 
+  let aux = function
+  | (_, _, None) -> false
+  | (_, _, Some bet) -> (compute bet result) > 0
+  in List.exists aux l
+
+
+
+let max_winner (l: player list) result : int = 
+  let aux = function
+  | (_, _, None) -> 0
+  | (_, _, Some bet) -> compute bet result 
+  in 
+  let winnings = List.map aux l in
+  List.fold_left max 0 winnings
+
+
+let casino_profit (l: player list) result : int = 
+  let aux = function
+  | (_, _, None) -> 0
+  | (_, _, Some bet) -> compute bet result 
+  in 
+  let winnings = List.map aux l in
+  List.fold_left ( - ) 0 winnings
+(* Q1:  given a list of players and a result compute the new amounts each player has and set their bets to None *)
+
+(* Q2: given a list of players and a result compute a list of winning players with their bets *)
 
 (* Q3: given a list of bets and a result compute how much money the casino needs to pay back *)
 
@@ -160,4 +221,34 @@ let players = [ ("Aliya", 1000, Some (400 , Red)) ;
 
 
 
+
+
+
+(*let add_up_tr h acc = match h with*)
+(*| Empty -> acc*)
+(*| Hand(c,h) -> add_up_tr h (acc + 1)*)
+(**)
+(**)
+(*let add_up h = match h with*)
+(*| Empty -> 0*)
+(*| Hand(c,h) -> add_up h + 1*)
+
+
+
+
+type ingredients = Vanilla | Chocolate | Mint | Hazelnut
+type bread = Brown | White
+
+type price = float
+
+type sandwich = Sandwich of price * bread * ingredients list
+
+
+let filter_sandwiches (sl : sandwich list) (res : ingredients list) = 
+  let aux res sandwich = match sandwich with
+  | Sandwich (_, _, ings) -> let contains list elem = List.mem elem list in 
+                    List.for_all (contains res) ings
+  in
+  List.filter (aux res) sl
+      
 

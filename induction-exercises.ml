@@ -21,8 +21,8 @@ exception Fill_Blank
 (* Here is a program that computes the length of a list *)
 
 let rec length (l:'a list) : int = match l with 
-| [] -> 0 
-| _::xs -> 1 + length xs
+  | [] -> 0 
+  | _::xs -> 1 + length xs
 
 (*
 
@@ -30,13 +30,44 @@ let rec length (l:'a list) : int = match l with
    an accumulator. 
    What would be the type of such a function?
 
+A: The type of the function would be 'a list -> int -> int 
+
+
 2) What initial value init do you need to pass to length_tr? 
+
+A: 0 would be the initial value
 
 3) Prove that length l computes the same result as calling length_tr t init (i.e. where we give the initial value as the second argument)
    (HINT: This might require a generalization of the theorem; see how we proved length l = length_tr l init) 
 
+  Prove that for all lists l and integers acc, length_tr l acc = length l + acc
+
+
+  Base Case: l = []
+  Show: length_tr [] acc = length [] + acc = 0 + acc
+
+    = evaluation (pattern matching)
+    | [] -> acc 
+    acc = 0 + acc
+
+  Inductive Hypothesis:
+    for a list t and any acc, it holds that
+    length_tr t acc = length t + acc
+
+  Inductive Step: l = (h::t)
+  Show: length_tr l acc = length l + acc = 1 + length t + acc
+
+     = eval (pattern matching)
+     | h::t -> length_tr t (acc + 1)
+     by IH, length_tr t (acc +1) = length t + (acc + 1) = 1 + length t + acc 
+     
+     = length (h::t = l) + acc
+
 *)
 
+let rec length_tr (l:'a list) (acc:int) : int = match l with
+  | [] -> acc
+  | _::tail -> length_tr tail (acc + 1)
 
 (* ************************************************************************************* *)
 (* QUESTION *)
@@ -93,6 +124,13 @@ let rec sum_up (l:int list) : int = match l with
 let rec size (t:'a tree) : int = match t with 
 | Empty          -> 0
 | Node (a, l, r) -> size l + size r + 1
+
+
+let rec size_tr (t: 'a tree) (acc: int) = match t with 
+| Empty -> acc
+| Node (v, l, r) -> let l_tree = size_tr l acc
+                    in size_tr r (1 + l_tree)
+
 
 (* PRACTICE QUESTION – OFFLINE – 
 
